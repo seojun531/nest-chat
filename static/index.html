@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" >
+    <title>Simple Nest Chat</title>
+</head>
+<body>
+    <h2>Simple Nest Chat</h2>
+    <div id="chat"></div>
+    <input type="text" id="message" placeholder="메세지 입력">
+    <button onclick="sendMessage()">전송</button>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.slim.js"></script>
+<script src="http://localhost:3000/socket.io/socket.iㅐ.js"></script>
+<script>
+    const socket=io('http://localhost:3000')
+    function sendMessage(){
+        const message=$('#message').val()
+        socket.emit('message',message)
+    }
+    socket.on('connect',()=>{
+        console.log('connected')
+    })
+    socket.on('message',(message)=>{
+        $('#chat').append(`<div>${message}<div>`)
+    })
+</script>
+</html>
